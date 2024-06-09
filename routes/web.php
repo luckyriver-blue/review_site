@@ -15,3 +15,4 @@ use App\Http\Controllers\ReviewController;
 */
 
 Route::get('/', [ReviewController::class, 'HospitalReview']);
+Route::get('/posts/{post}', [ReviewController::class, 'ShowReview']);

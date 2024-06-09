@@ -43,11 +43,16 @@
             <div class='posts'>
                 @foreach ($posts as $post)
                     <div class='post'>
-                        <h2 class='title'>〇〇の口コミ</h2>
+                        <h2 class='title'>
+                            <a href="/posts/{{ $post->id }}">〇〇の口コミ</a>
+                        </h2>
                         <h3>投稿日　{{ $post->created_at->format('Y/m/d') }}　　{{ $post->helpful }}人の参考になった</h3>
                         <br>
                         @if(!is_null($post->hospital_department))
                             <h3>{{ $post->hospital_department }}科</h3>
+                        @endif
+                        @if(!is_null($post->desease))
+                            <h3>{{ $post->desease }}</h3>
                         @endif
                         @if(!is_null($post->smooth_examination) && !is_null($post->smooth_hospitalization))
                             <h3>治療までのスムーズさ</h3>
