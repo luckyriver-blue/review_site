@@ -15,4 +15,7 @@ use App\Http\Controllers\ReviewController;
 */
 
 Route::get('/', [ReviewController::class, 'HospitalReview']);
+Route::get('/posts/create', [ReviewController::class, 'create']);
+Route::get('/posts/create', [ReviewController::class, 'OptionDepartment']);
 Route::get('/posts/{post}', [ReviewController::class, 'ShowReview']);
+Route::post('/posts', [ReviewController::class, 'store']);
