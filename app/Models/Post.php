@@ -14,6 +14,22 @@ class Post extends Model
     {
         return $this->orderBy('helpful', 'DESC')->paginate($limit_count);
     }
+    public function getAverageStars()
+    {
+        return $hospitalsWithAverageStars = Post::select('hospital_id', DB::raw('AVG(star) as average_stars'))
+                ->groupBy('hospital_id')
+                ->orderBy('average_stars', 'ASC')
+                ->get();
+    }
+    protected $fillable = [
+        'myself',
+        'hospital_department_id',
+        'desease',
+        'smooth_examination',
+        'smooth_hospitalization',
+        'star',
+        'body',
+    ];
     
     public function user()
     {
