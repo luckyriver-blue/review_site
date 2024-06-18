@@ -39,4 +39,8 @@ class Post extends Model
     {
         return $this->belongsTo(Hospital::class);
     }
+    public function hospital_deaprtment()
+    {
+        return $this->belongsTo(Hospital_Department::class);
+    }
 }
