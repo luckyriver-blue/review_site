@@ -14,7 +14,7 @@ class ReviewController extends Controller
     }
     public function HospitalReview(Post $post)
     {
-        return view('hospitals.posts.hospital_review')->with(['posts' => $post->getPaginateByLimit()]);
+        return view('posts.hospital_review')->with(['posts' => $post->getPaginateByLimit()]);
     }
     public function ShowReview(Post $post)
     {
@@ -22,11 +22,11 @@ class ReviewController extends Controller
     }
     public function create(Request $request)
     {
-        return view('hospitals.posts.create');
+        return view('posts.create');
     }
     public function OptionDepartment(Hospital_Department $hospital_department)
     {
-        return view('hospitals.posts.create')->with(['hospital_departments' => $hospital_department->get()]);
+        return view('posts.create')->with(['hospital_departments' => $hospital_department->get()]);
     }
     public function store(Request $request, Post $post)
     {
