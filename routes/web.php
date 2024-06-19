@@ -29,10 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
 
-Route::get('/', [ReviewController::class, 'HospitalReview']);
-Route::get('/posts/create', [ReviewController::class, 'create']);
-Route::get('/posts/create', [ReviewController::class, 'OptionDepartment']);
-Route::get('/posts/{post}', [ReviewController::class, 'ShowReview']);
-Route::post('/posts', [ReviewController::class, 'store']);
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/', [ReviewController::class, 'HospitalReview']);
+    Route::get('/posts/create', [ReviewController::class, 'create']);
+    Route::get('/posts/create', [ReviewController::class, 'OptionDepartment']);
+    Route::get('/posts/{post}', [ReviewController::class, 'ShowReview']);
+    Route::post('/posts', [ReviewController::class, 'store']);
+});
+
+require __DIR__.'/auth.php';
