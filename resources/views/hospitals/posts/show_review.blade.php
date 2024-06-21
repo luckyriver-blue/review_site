@@ -33,7 +33,7 @@
             <h3>
                 <a href="/">戻る</a>
             </h3>
-            <div class='posts', align=center>
+            <div class='post', align=center>
                 <h2>〇〇の口コミ</h2>
                 <h3>投稿日　{{ $post->created_at->format('Y/m/d') }}　　{{ $post->helpful }}人の参考になった</h3>
                 @if(!is_null($post->hospital_department))

@@ -22,6 +22,8 @@ class Post extends Model
                 ->get();
     }
     protected $fillable = [
+        'user_id',
+        'hospital_id',
         'myself',
         'hospital_department_id',
         'desease',
