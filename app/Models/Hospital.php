@@ -10,6 +10,16 @@ class Hospital extends Model
 {
     use HasFactory;
     
+    public function getSelectHospital(int $limit_count = 20)
+    {
+        return $this->orderBy('place')->paginate($limit_count);
+    }
+    
+    protected $fillable = [
+        'name',
+        'place',
+    ];
+    
     public function posts()
     {
         return $this->hasMany(Post::class);

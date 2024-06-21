@@ -18,7 +18,7 @@
         </style>
         <link rel="stylesheet" href="{{ secure_asset('/css/create.css') }}">
         <link rel="stylesheet" href="{{ secure_asset('/css/star.css') }}">
-        <script src="{{ secure_asset('/js/star.js') }}"></script>
+        
        
         
         
@@ -41,19 +41,17 @@
             <hr>
             <div>
                 <h2 align=center>口コミ✎</h2>
-                <div class="enter_riview">
-                    <h2>総合病院</h2>
-                </div>
+                <div class="enter_review">
+                    <h2>{{ $hospital->name }}</h2>
                     <form action="/posts" method="POST">
                         @csrf
-                        
                         
                         <table>
                             <tr class="myself">
                                 <th>口コミを投稿するのは</th>
                                 <td class="container">
                                     <select class="block mt-1 w-full" name="post[myself]">
-                                        <option align=center>-未選択-</option>
+                                        <option align=center value="">-未選択-</option>
                                         <option value="1">本人</option>
                                         <option value="2">本人でない</option>
                                     </select>
@@ -63,7 +61,7 @@
                                 <th>診療科</th>
                                 <td class="container">
                                     <select class="block mt-1 w-full" name="post[hospital_department_id]">
-                                        <option>-未選択-</option>
+                                        <option value="">-未選択-</option>
                                         @foreach ($hospital_departments as $hospital_department)
                                             <option value="{{ $hospital_department->id }}">{{ $hospital_department->name }}</option>
                                         @endforeach
@@ -99,7 +97,6 @@
                             </tr>
                         </table>
                         
-                        
                         <div class="body">
                             <h3>口コミ</h3>
                             <textarea name="post[body]" placeholder="ホームページ上から予約ができました。診察も丁寧でした。"></textarea>
@@ -107,6 +104,7 @@
                         <p>＊治療までのスムーズさを比較するための項目です。</p>
                         <p>　例えば診察は、初診で連絡してからだいたい何日後に予約が取れたか（当日受付なら０日）</p>
                         <p>　入院・手術は入院又は入院・手術の予定が、その方針が決まってからだいたい何日後入ったか</p>
+                        <input type="hidden" name="post[hospital_id]" value="{{ $hospital->id }}">
                         <input type="submit" value="口コミを投稿する"/>
                     </form>
                 </div>
