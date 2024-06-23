@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Hospital;
 use App\Models\Hospital_Department;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,18 +27,15 @@ class ReviewController extends Controller
     {
         return view('hospitals.posts.hospital_select_create')->with(['hospitals' => $hospital->getSelectHospital()]);
     }
-    public function create(Request $request, Hospital $hospital)
-    {
-        return view('hospitals.posts.create')->with(['hospital' => $hospital]);
-    }
-    public function OptionDepartment(Hospital_Department $hospital_department, Hospital $hospital)
+    
+    public function create(Hospital_Department $hospital_department, Hospital $hospital)
     {
         return view('hospitals.posts.create', [
             'hospital' => $hospital,
             'hospital_departments' => $hospital_department->get(),
             ]);
     }
-     public function add(Request $request, Hospital $hospital)
+    public function add(Request $request, Hospital $hospital)
     {
         $input = $request['hospital'];
         $hospital->fill($input)->save();
@@ -49,5 +47,18 @@ class ReviewController extends Controller
         $input['user_id'] = Auth::id();
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);
+    }
+    public function mypage(User $user, Post $post)
+    {
+        $user = Auth::user();
+        $posts = $post->getMyPostsPaginate();
+        return view('hospitals.posts.mypage', ['user' => $user, 'posts' => $posts]);
+    }
+    public function updateProfile(Request $request, User $user)
+    {
+        $user = Auth::user();
+        $input = $request['user'];
+        $user->update($input);
+        return redirect()->back();
     }
 }
