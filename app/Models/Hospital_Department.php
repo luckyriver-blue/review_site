@@ -15,5 +15,6 @@ class Hospital_Department extends Model
         return $this->hasMany(Post::class);
     }
     
+    
     protected $table = 'hospital_departments';
 }
