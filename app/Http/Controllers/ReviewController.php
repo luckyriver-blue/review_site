@@ -71,4 +71,10 @@ class ReviewController extends Controller
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);
     }
+    public function delete(Post $post, User $user)
+    {
+        $post->delete();
+        $user = Auth::user();
+        return redirect('/posts/mypage/' . $user->id);
+    }
 }

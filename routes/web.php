@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/posts/mypage', [ReviewController::class, 'updateProfile']);
     Route::get('/posts/mypage/edit/{post}', [ReviewController::class, 'mypost']);
     Route::put('/posts/{post}', [ReviewController::class, 'update']);
+    Route::delete('/posts/{post}', [ReviewController::class, 'delete']);
 });   
 
 require __DIR__.'/auth.php';
