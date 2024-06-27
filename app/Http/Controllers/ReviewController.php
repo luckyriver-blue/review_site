@@ -17,7 +17,7 @@ class ReviewController extends Controller
     }
     public function HospitalReview(Post $post)
     {
-        return view('hospitals.posts.hospital_review')->with(['posts' => $post->getPaginateByLimit()]);
+        return view('hospitals.posts.hospital_review')->with(['posts' => $posts->getPaginateByLimit()]);
     }
     public function ShowReview(Post $post)
     {
@@ -60,5 +60,21 @@ class ReviewController extends Controller
         $input = $request['user'];
         $user->update($input);
         return redirect()->back();
+    }
+    public function mypost(Post $post, Hospital_Department $hospital_department)
+    {
+        return view('hospitals.posts.edit', ['post' => $post, 'hospital_departments' => $hospital_department->get()]);
+    }
+    public function update(Request $request, Post $post)
+    {
+        $input = $request['post'];
+        $post->fill($input)->save();
+        return redirect('/posts/' . $post->id);
+    }
+    public function delete(Post $post, User $user)
+    {
+        $post->delete();
+        $user = Auth::user();
+        return redirect('/posts/mypage/' . $user->id);
     }
 }

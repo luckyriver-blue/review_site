@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Hospital;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     
     public function getPaginateByLimit(int $limit_count = 10)
@@ -26,9 +28,6 @@ class Post extends Model
     public function getMyPostsPaginate(int $limit_count = 10)
     {
         $user_id = Auth::id();
-        $userPosts = self::where('user_id', $user_id);
-        $hospital_id = $userPosts->select('hospital_id');
-        $hospital_name = Hospital::where('id', $hospital_id);
         return $this->where('user_id', $user_id)
             ->orderBy('updated_at', 'DESC')
             ->paginate($limit_count);
@@ -54,7 +53,7 @@ class Post extends Model
     {
         return $this->belongsTo(Hospital::class);
     }
-    public function hospital_deaprtment()
+    public function hospital_department()
     {
         return $this->belongsTo(Hospital_Department::class);
     }
