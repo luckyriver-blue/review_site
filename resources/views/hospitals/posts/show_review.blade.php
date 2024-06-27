@@ -36,8 +36,8 @@
             <div class='post', align=center>
                 <h2>〇〇の口コミ</h2>
                 <h3>投稿日　{{ $post->created_at->format('Y/m/d') }}　　{{ $post->helpful }}人の参考になった</h3>
-                @if(!is_null($post->hospital_department))
-                    <h3>{{ $post->hospital_department }}科</h3>
+                @if(!is_null($post->hospital_department_id))
+                    <h3>{{ $post->hospital_department->name }}科</h3>
                 @endif
                 @if(!is_null($post->desease))
                     <h3>{{ $post->desease }}</h3>
