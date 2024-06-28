@@ -22,8 +22,7 @@ class Post extends Model
     {
         return $hospitalsWithAverageStars = Post::select('hospital_id', DB::raw('AVG(star) as average_stars'))
                 ->groupBy('hospital_id')
-                ->orderBy('average_stars', 'ASC')
-                ->get();
+                ->orderBy('average_stars', 'DESC');
     }
     public function getMyPostsPaginate(int $limit_count = 10)
     {

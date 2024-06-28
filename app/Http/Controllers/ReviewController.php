@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function Hospitals()
+    public function Hospitals(Hospital $hospital)
     {
-        return view('hospitals.hospitals')->with(['hospitals' => $hospital->getHospitalsPaginateByLimit]);
+        return view('hospitals.hospitals')->with(['hospitals' => $hospitals->getHospitalsPaginateByLimit()]);
     }
     public function HospitalReview(Post $post)
     {

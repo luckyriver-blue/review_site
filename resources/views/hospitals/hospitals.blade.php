@@ -45,18 +45,12 @@
                         <h2 class='name'>
                             <a href="/hospitals/{{ $hopital->id }}">{{ $hospital->name }}</a>
                         </h2>
-                        <h3></h3>
+                        <h3>星　{{ $post->star }}</h3>
                         <h3>{{ $hospital->place }}</h3>
-                        @if(!is_null($post=Post::whereIn('hospital_id', $hospital->id)->hospital_department))
+                        @if(!is_null($hospital_department_id))
                             @foreach ($hospital_departments as $hosital_department)
-                                @if (!in_array($hospital_department->name, $displayedDepartments))
-                                    <h3>{{ $hospital_department->name }}</h3>
-                                    <?php $displayedDepartments[] = $hospital_department->name; ?>
-                                @endif
+                                <h3>{{ $hospital_department->name }}</h3>
                             @endforeach
-                        @endif
-                        @if(!is_null($post->desease))
-                            <h3>{{ $post->desease }}</h3>
                         @endif
                         @if(!is_null($post->smooth_examination) && !is_null($post->smooth_hospitalization))
                             <h3>治療までのスムーズさ</h3>
@@ -67,7 +61,7 @@
                         @if(!is_null($post->smooth_hospitalization))
                             <h3>入院・手術まで{{ $post->smooth_hospitalization }}日</h3>
                         @endif
-                        <h3>評価　{{ $post->star }}</h3>
+                        
                         @if(!is_null($post->body))
                             <p>{{ $post->body }}</p>
                         @endif
