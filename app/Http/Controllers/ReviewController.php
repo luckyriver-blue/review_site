@@ -17,7 +17,7 @@ class ReviewController extends Controller
     }
     public function HospitalReview(Post $post)
     {
-        return view('hospitals.posts.hospital_review')->with(['posts' => $posts->getPaginateByLimit()]);
+        return view('hospitals.posts.hospital_review')->with(['posts' => $post->getPaginateByLimit()]);
     }
     public function ShowReview(Post $post)
     {
