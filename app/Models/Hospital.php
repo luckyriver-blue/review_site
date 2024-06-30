@@ -5,7 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Post;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Hospital extends Model
@@ -13,11 +15,21 @@ class Hospital extends Model
     use SoftDeletes;
     use HasFactory;
     
-    
+    public function scopeFilter(Builder $query, $keyword)
+    {
+        //検索
+        if(!empty($keyword)) {
+            $query->where('name', 'LIKE', "%{$keyword}%")
+                ->orwhere('place', 'LIKE', "%{$keyword}%");
+        }
+        
+        return $query;
+    }
     public function getStarHospitals()
     {
         $starHospitalIds->Post::getAverageStars()->pluck('hospital_id');
-        $starHospitals = Hospital::whereIn('id', $starHospitalIds)
+        $starHospitals = $filteredHospitals
+                    ->whereIn('id', $starHospitalIds)
                     ->orderByRaw('FIELD(id, ' . $starHospitalIds->implode(',') . ')')
                     ->get();
         return $starHospitals;
@@ -34,9 +46,9 @@ class Hospital extends Model
             'hospital_department_id' // Local key on Post table
         );
     }
-    public static function getHospitalsPaginateByLimit(int $limit_count = 10)
+    public static function scopeGetHospitalsPaginateByLimit(Builder $query, int $limit_count = 10)
     {
-        return self::with('departments')->paginate($limit_count);
+        return $query->with('departments')->paginate($limit_count);
     }
     public function getSelectHospital(int $limit_count = 20)
     {

@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function Hospitals(Post $post, Hospital $hospital)
+    public function Hospitals(Post $post, Hospital $hospital, Request $request)
     {
-        $hospitals = Hospital::getHospitalsPaginateByLimit(); //診療科も取得
+        $keyword = $request->input('keyword');
+        $hospitals = Hospital::filter($keyword)->getHospitalsPaginateByLimit(); //診療科も取得
         $averageStars = Post::getAverageStars();
         $averageSmooth_Examination = Post::getAverageSmooth_Examination();
         $averageSmooth_Hospitalization = Post::getAverageSmooth_Examination();
@@ -24,7 +25,15 @@ class ReviewController extends Controller
         $averageSmooth_ExaminationMap = $averageSmooth_Examination->keyBy('hospital_id');
         $averageSmooth_HospitalizationMap = $averageSmooth_Hospitalization->keyBy('hospital_id');
         
-        return view('hospitals.hospitals')->with(compact('hospitals', 'averageStarsMap', 'averageSmooth_ExaminationMap', 'averageSmooth_HospitalizationMap', 'bodyPart', 'bodyPart'));
+        return view('hospitals.hospitals')->with(compact(
+            'hospitals', 
+            'keyword', 
+            'averageStarsMap', 
+            'averageSmooth_ExaminationMap', 
+            'averageSmooth_HospitalizationMap',
+            'bodyPart', 
+            'bodyPart'
+        ));
     }
     
     public function HospitalReview(Post $post)

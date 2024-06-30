@@ -30,6 +30,13 @@
         <div>
         <hr>
         <div>
+            <div class='search'>
+                <form action="/hospitals" method="GET">
+                    <p>フリーワード</p>
+                    <input type="text" name="keyword" value="{{ $keyword }}">
+                    <input type="submit" value ="この条件で絞り込む">
+                </form>
+            </div>
             <p>都道府県</p>
             <p>診療科</p>
             <p>病名</p>
