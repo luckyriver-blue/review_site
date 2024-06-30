@@ -43,34 +43,36 @@
                 @foreach ($hospitals as $hospital)
                     <div class='hospital'>
                         <h2 class='name'>
-                            <a href="/hospitals/{{ $hopital->id }}">{{ $hospital->name }}</a>
+                            <a href="/hospitals/{{ $hospital->id }}">{{ $hospital->name }}</a>
                         </h2>
-                        <h3>星　{{ $post->star }}</h3>
+                        <h3>★
+                            @if (isset($averageStarsMap[$hospital->id]))
+                                {{ number_format($averageStarsMap[$hospital->id]->average_stars, 2) }}
+                            @endif
+                        </h3>
                         <h3>{{ $hospital->place }}</h3>
-                        @if(!is_null($hospital_department_id))
-                            @foreach ($hospital_departments as $hosital_department)
-                                <h3>{{ $hospital_department->name }}</h3>
+                        @if(!is_null($hospital->departments))
+                            @foreach ($hospital->departments as $department)
+                                <h3>{{ $department->name }}</h3>
                             @endforeach
                         @endif
-                        @if(!is_null($post->smooth_examination) && !is_null($post->smooth_hospitalization))
+                        @if(isset($averageSmooth_ExaminationMap[$hospital->id]->average_smooth_examination) && isset($averageSmooth_HospitalizationMap[$hospital->id]->average_smooth_hospitalization))
                             <h3>治療までのスムーズさ</h3>
                         @endif
-                        @if(!is_null($post->smooth_examination))
-                            <h3>診察まで{{ $post->smooth_examination }}日　</h3>
+                        @if(isset($averageSmooth_ExaminationMap[$hospital->id]->average_smooth_examination))
+                            <h3>診察まで{{ number_format($averageSmooth_ExaminationMap[$hospital->id]->average_smooth_examination, 2) }}日　</h3>
                         @endif
-                        @if(!is_null($post->smooth_hospitalization))
-                            <h3>入院・手術まで{{ $post->smooth_hospitalization }}日</h3>
+                        @if(isset($averageSmooth_HospitalizationMap[$hospital->id]->average_smooth_hospitalization))
+                            <h3>入院・手術まで{{ number_format($averageSmooth_HospitalizationMap[$hospital->id]->average_smooth_hospitalization, 2) }}日</h3>
                         @endif
-                        
-                        @if(!is_null($post->body))
-                            <p>{{ $post->body }}</p>
+                        @if(isset($bodyPart[$hospital->id]))
+                            <p>{{ $bodyPart[$hospital->id] }}</p>
                         @endif
-                        <p align=right>参考になった</p>
                     </div>
                 @endforeach
             </div>
             <div class='paginate'>
-                {{ $posts->links() }}
+                {{ $hospitals->links() }}
             </div>
         </div>
     </body>
