@@ -15,16 +15,6 @@ class Hospital extends Model
     use SoftDeletes;
     use HasFactory;
     
-    public function scopeFilter(Builder $query, $keyword)
-    {
-        //検索
-        if(!empty($keyword)) {
-            $query->where('name', 'LIKE', "%{$keyword}%")
-                ->orwhere('place', 'LIKE', "%{$keyword}%");
-        }
-        
-        return $query;
-    }
     public function getStarHospitals()
     {
         $starHospitalIds->Post::getAverageStars()->pluck('hospital_id');
@@ -45,6 +35,34 @@ class Hospital extends Model
             'id',          // Local key on Hospital table
             'hospital_department_id' // Local key on Post table
         );
+    }
+    public function scopeFilterByPlace(Builder $query, $searchPlace) {
+        //場所で検索
+        if (!empty($searchPlace)) {
+            $query->where('place', 'LIKE', "%{$searchPlace}%");
+        }
+        return $query;
+    }
+    public function scopeFilterByDepartment(Builder $query, $searchHospital_Department) {
+        //診療科で病院検索
+        if (isset($searchHospital_Department)) {
+            $query->whereHas('departments', function ($query) use ($searchHospital_Department) {
+                $query->where('hospital_departments.id', $searchHospital_Department);
+            });
+        }
+        return $query;
+    }
+    public function scopeFilter(Builder $query, $keyword)
+    {
+        //フリーワード検索
+        if(!empty($keyword)) {
+            $query->where('name', 'LIKE', "%{$keyword}%")
+                ->orwhere('place', 'LIKE', "%{$keyword}%")
+                ->orwhereHas('departments', function ($query) use ($keyword) {
+                    $query->where('hospital_departments.name', 'LIKE', "%{$keyword}%");
+                });
+        }
+        return $query;
     }
     public static function scopeGetHospitalsPaginateByLimit(Builder $query, int $limit_count = 10)
     {
