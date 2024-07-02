@@ -30,12 +30,32 @@
         <div>
         <hr>
         <div>
-            <p>都道府県</p>
-            <p>診療科</p>
-            <p>病名</p>
-            <p>フリーワード</p>
-            <p>この条件で絞り込む</p>
-            <p align=right>高評価順</p>
+            <div class='search'>
+                <form action="/hospitals" method="GET">
+                    <div class="place">
+                        <p>地名</p>
+                        <input type="text" name="search_place" value="{{ $searchPlace }}">
+                    </div>
+                    <div class="hospital_department">
+                        <p>診療科</p>
+                        <select class="block mt-1 w-full" name="search_hospital_department">
+                            <option value="">-未選択-</option>
+                            @foreach ($hospital_departments as $hospital_department)
+                                <option value="{{ $hospital_department->id }}" {{ $searchHospital_Department == $hospital_department->id ? "selected" : "" }}>{{ $hospital_department->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <p>フリーワード</p>
+                    <input type="text" name="keyword" value="{{ $keyword }}">
+                    <input type="submit" value ="この条件で検索">
+                    <div class="sort" align=right>
+                        <select class="block mt-1 w-full" name="sort_hospitals">
+                            <option value="star" {{ $sortHospitals == "star" ? "selected" : "" }}>高評価順</option>
+                            <option value="smooth" {{ $sortHospitals == "smooth" ? "selected" : "" }}>スムーズ順</option>
+                        </select>
+                    </div> 
+                </form>
+            </div>
         </div>
         <hr>
         <div>

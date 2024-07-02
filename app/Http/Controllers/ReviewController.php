@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function Hospitals(Post $post, Hospital $hospital)
+    public function Hospitals(Post $post, Hospital $hospital, Hospital_Department $hospital_department, Request $request)
     {
-        $hospitals = Hospital::getHospitalsPaginateByLimit(); //診療科も取得
         $averageStars = Post::getAverageStars();
         $averageSmooth_Examination = Post::getAverageSmooth_Examination();
         $averageSmooth_Hospitalization = Post::getAverageSmooth_Examination();
@@ -24,7 +23,35 @@ class ReviewController extends Controller
         $averageSmooth_ExaminationMap = $averageSmooth_Examination->keyBy('hospital_id');
         $averageSmooth_HospitalizationMap = $averageSmooth_Hospitalization->keyBy('hospital_id');
         
-        return view('hospitals.hospitals')->with(compact('hospitals', 'averageStarsMap', 'averageSmooth_ExaminationMap', 'averageSmooth_HospitalizationMap', 'bodyPart', 'bodyPart'));
+        $keyword = $request->input('keyword');
+        $searchHospital_Department = $request->input('search_hospital_department');
+        $searchPlace = $request->input('search_place');
+        $sortHospitals = $request->input('sort_hospitals');
+        
+        $hospitals = Hospital::sortHospitals($sortHospitals)
+                    ->filter($keyword)
+                    ->filterByPlace($searchPlace)
+                    ->filterByDepartment($searchHospital_Department)
+                    ->getHospitalsPaginateByLimit(); //診療科も取得
+        
+        
+        $hospital_departments = $hospital_department->get();
+        
+        
+        
+        return view('hospitals.hospitals')->with(compact(
+            'hospitals', 
+            'hospital_departments',
+            'keyword', 
+            'searchPlace',
+            'searchHospital_Department',
+            'sortHospitals',
+            'averageStarsMap', 
+            'averageSmooth_ExaminationMap', 
+            'averageSmooth_HospitalizationMap',
+            'bodyPart', 
+            'bodyPart'
+        ));
     }
     
     public function HospitalReview(Post $post)

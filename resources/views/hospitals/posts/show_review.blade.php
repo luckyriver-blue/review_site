@@ -31,7 +31,8 @@
             <h2>総合病院</h2>
             <br>
             <h3>
-                <a href="/">戻る</a>
+                <a href="/">トップに戻る</a> 
+                <a href="/posts/mypage/{{ Auth::user()->id }}">マイページへ</a> 
             </h3>
             <div class='post', align=center>
                 <h2>〇〇の口コミ</h2>
