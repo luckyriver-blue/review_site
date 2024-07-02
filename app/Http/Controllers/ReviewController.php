@@ -13,21 +13,31 @@ class ReviewController extends Controller
 {
     public function Hospitals(Post $post, Hospital $hospital, Hospital_Department $hospital_department, Request $request)
     {
-        $keyword = $request->input('keyword');
-        $searchHospital_Department = $request->input('search_hospital_department');
-        $searchPlace = $request->input('search_place');
-        $hospitals = Hospital::filter($keyword)->filterByPlace($searchPlace)->filterByDepartment($searchHospital_Department)->getHospitalsPaginateByLimit(); //診療科も取得
         $averageStars = Post::getAverageStars();
         $averageSmooth_Examination = Post::getAverageSmooth_Examination();
         $averageSmooth_Hospitalization = Post::getAverageSmooth_Examination();
         $bodyPart = Post::getBodyPart();
         
-        $hospital_departments = $hospital_department->get();
-        
         //病院IDをキーにして平均を取得するための連想配列
         $averageStarsMap = $averageStars->keyBy('hospital_id');
         $averageSmooth_ExaminationMap = $averageSmooth_Examination->keyBy('hospital_id');
         $averageSmooth_HospitalizationMap = $averageSmooth_Hospitalization->keyBy('hospital_id');
+        
+        $keyword = $request->input('keyword');
+        $searchHospital_Department = $request->input('search_hospital_department');
+        $searchPlace = $request->input('search_place');
+        $sortHospitals = $request->input('sort_hospitals');
+        
+        $hospitals = Hospital::sortHospitals($sortHospitals)
+                    ->filter($keyword)
+                    ->filterByPlace($searchPlace)
+                    ->filterByDepartment($searchHospital_Department)
+                    ->getHospitalsPaginateByLimit(); //診療科も取得
+        
+        
+        $hospital_departments = $hospital_department->get();
+        
+        
         
         return view('hospitals.hospitals')->with(compact(
             'hospitals', 
@@ -35,6 +45,7 @@ class ReviewController extends Controller
             'keyword', 
             'searchPlace',
             'searchHospital_Department',
+            'sortHospitals',
             'averageStarsMap', 
             'averageSmooth_ExaminationMap', 
             'averageSmooth_HospitalizationMap',

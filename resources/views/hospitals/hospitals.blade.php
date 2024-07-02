@@ -41,16 +41,21 @@
                         <select class="block mt-1 w-full" name="search_hospital_department">
                             <option value="">-未選択-</option>
                             @foreach ($hospital_departments as $hospital_department)
-                                <option value="{{ $hospital_department->id }}"{{ $searchHospital_Department == $hospital_department->id ? "selected" : "" }}>{{ $hospital_department->name }}</option>
+                                <option value="{{ $hospital_department->id }}" {{ $searchHospital_Department == $hospital_department->id ? "selected" : "" }}>{{ $hospital_department->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <p>フリーワード</p>
                     <input type="text" name="keyword" value="{{ $keyword }}">
-                    <input type="submit" value ="この条件で絞り込む">
+                    <input type="submit" value ="この条件で検索">
+                    <div class="sort" align=right>
+                        <select class="block mt-1 w-full" name="sort_hospitals">
+                            <option value="star" {{ $sortHospitals == "star" ? "selected" : "" }}>高評価順</option>
+                            <option value="smooth" {{ $sortHospitals == "smooth" ? "selected" : "" }}>スムーズ順</option>
+                        </select>
+                    </div> 
                 </form>
             </div>
-            <p align=right>高評価順</p>
         </div>
         <hr>
         <div>
