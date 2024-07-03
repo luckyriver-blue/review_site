@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Hospital;
 use App\Models\Hospital_Department;
 use App\Models\User;
+use App\Models\Helpful;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,5 +116,23 @@ class ReviewController extends Controller
         $post->delete();
         $user = Auth::user();
         return redirect('/posts/mypage/' . $user->id);
+    }
+    public function __construct()
+    {
+        $this->middleware(['auth','verified'])->only(['helpful', 'unHelpful']);
+    }
+    public function helpful(Request $requet, Post $post)
+    {
+        Helpful::create([
+            'post_id' => $post->id,
+            'user_id' => Auth::id(),
+        ]);
+        return redirect()->back();
+    }
+    public function unHelpful(Post $post)
+    {
+        $helpful = Helpful::where('post_id', $post->id)->where('user_id', Auth::id())->first();
+        $helpful->delete();
+        return redirect()->back();
     }
 }
