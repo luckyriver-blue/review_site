@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Hospital;
+use App\Models\Helpful;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -17,7 +18,9 @@ class Post extends Model
     
     public function getPaginateByLimit(int $limit_count = 10)
     {
-        return $this->orderBy('helpful', 'DESC')->paginate($limit_count);
+        return $this->withCount('helpfuls')
+                    ->orderBy('helpfuls_count', 'DESC')
+                    ->paginate($limit_count);
     }
     public static function getAverageStars()
     {
@@ -66,6 +69,16 @@ class Post extends Model
             ->orderBy('updated_at', 'DESC')
             ->paginate($limit_count);
     }
+    public function is_liked()
+    {
+        $id = Auth::id();
+        
+        $likers = array();
+        foreach($this->helpfuls as $helpful) {
+            array_push($likers, $helpful->user_id);
+        }
+        return in_array($id, $likers);
+    }
     
     protected $fillable = [
         'user_id',
@@ -90,5 +103,9 @@ class Post extends Model
     public function hospital_department()
     {
         return $this->belongsTo(Hospital_Department::class);
+    }
+    public function helpfuls()
+    {
+        return $this->hasMany(Helpful::class, 'post_id');
     }
 }

@@ -50,7 +50,7 @@
                             <h2 class='title'>
                                 <a href="/posts/{{ $post->id }}">〇〇の口コミ</a>
                             </h2>
-                            <h3>投稿日　{{ $post->created_at->format('Y/m/d') }}　　{{ $post->helpful }}人の参考になった</h3>
+                            <h3>投稿日　{{ $post->created_at->format('Y/m/d') }}　　{{ $post->helpfuls->count() }}人の参考になった</h3>
                             <br>
                             @if(!is_null($post->hospital_department_id))
                                 <h3>{{ $post->hospital_department->name }}</h3>
@@ -71,7 +71,22 @@
                             @if(!is_null($post->body))
                                 <p>{{ $post->body }}</p>
                             @endif
-                            <p align=right>参考になった</p>
+                            <div class="helpful" align="right">
+                                @if (Auth::id() != $post->user->id)
+                                    @if($post->is_liked())
+                                        <form action="/posts/unhelpful/{{ $post->id }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-primary">参考になったを取り消す</button>
+                                        </form>
+                                    @else
+                                        <form action="/posts/helpful/{{ $post->id }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success">参考になった</button>
+                                        </form>
+                                    @endif
+                                @endif
+                            </div>
                         </div>
                     @endforeach
                 </div>

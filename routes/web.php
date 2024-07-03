@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/posts/mypage/edit/{post}', [ReviewController::class, 'mypost']);
     Route::put('/posts/{post}', [ReviewController::class, 'update']);
     Route::delete('/posts/{post}', [ReviewController::class, 'delete']);
+    Route::post('/posts/helpful/{post}', [ReviewController::class, 'helpful']);
+    Route::delete('/posts/unhelpful/{post}', [ReviewController::class, 'unHelpful']);
 });   
 
 require __DIR__.'/auth.php';
