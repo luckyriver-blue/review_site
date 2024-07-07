@@ -23,13 +23,8 @@
         </x-slot>
         <body class="antialiased">
             <div>
-                <p>都道府県</p>
-                <p>フリーワード</p>
-                <p>この条件で絞り込む</p>
-            </div>
-            <hr>
-            <div>
                 <div class="hospitals">
+                    <h2>口コミを書く病院を選択する</h2>
                     @foreach ($hospitals as $hospital)
                         <div class="hospital">
                             <h2 class="name">
