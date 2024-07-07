@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/posts/hospital/create', [ReviewController::class, 'add']);
     Route::post('/posts', [ReviewController::class, 'store']);
     Route::get('/posts/{post}', [ReviewController::class, 'ShowReview']);
-    Route::get('/posts/mypage/{user}', [ReviewController::class, 'mypage']);
+    Route::get('/posts/mypage/{user}', [ReviewController::class, 'mypage'])->name('mypage');
     Route::post('/posts/mypage', [ReviewController::class, 'updateProfile']);
     Route::get('/posts/mypage/edit/{post}', [ReviewController::class, 'mypost']);
     Route::put('/posts/{post}', [ReviewController::class, 'update']);

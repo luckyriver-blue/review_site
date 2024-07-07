@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('create')" :active="request()->routeIs('create')">
                         {{ __('口コミを書く') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('mypage', ['user' => Auth::user()->id])" :active="request()->routeIs('mypage')">
+                        {{ __('マイページ') }}
+                    </x-nav-link>
                 </div>
             </div>
 

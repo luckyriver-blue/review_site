@@ -29,17 +29,6 @@
         </x-slot>
         <body class="antialiased">
             <div>
-                <p align=right>ログイン</p>
-                <h1>病院口コミサイト</h1>
-                <h2>
-                    ホーム
-                    検索
-                    口コミを書く
-                    マイページ
-                </h2>
-            <div>
-            <hr>
-            <div>
                 <h2 align=center>口コミ編集✎</h2>
                 <div class="enter_review">
                     <h2>{{ $post->hospital->name }}</h2>
