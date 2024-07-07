@@ -46,9 +46,9 @@
                         </select>
                     </div>
                     <p>フリーワード</p>
-                    <input type="text" name="keyword" value="{{ $keyword }}">
+                    <input type="text" name="keyword" value="{{ $keyword }}" placeholder="病院名、場所、診療科で検索">
                     <input type="submit" value ="この条件で検索">
-                    <div class="sort" align=right>
+                    <div class="sort" align="right">
                         <select class="block mt-1 w-full" name="sort_hospitals">
                             <option value="star" {{ $sortHospitals == "star" ? "selected" : "" }}>高評価順</option>
                             <option value="smooth" {{ $sortHospitals == "smooth" ? "selected" : "" }}>スムーズ順</option>
