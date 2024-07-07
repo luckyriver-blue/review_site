@@ -73,6 +73,7 @@
                                 <th>病名</th>
                                 <td>
                                     <input type="text" name="post[desease]" value="{{ $post->desease ?? "" }}"/>
+                                    <p class="desease__error" style="color:red">{{ $errors->first('post.desease') }}</p>
                                 </td>
                             </tr>
                             <tr class="smooth">
@@ -85,7 +86,7 @@
                                 日*</td>
                             </tr>
                             <tr class="star">
-                                <th>評価</th>
+                                <th>評価（必須）</th>
                                 <td>
                                     <div class="rate-form">
                                         <input id="star5" type="radio" name="post[star]" value="5" {{ $post->star =="5"? "checked" : "" }}><label for="star5">★</label>
@@ -94,6 +95,7 @@
                                         <input id="star2" type="radio" name="post[star]" value="2" {{ $post->star =="2"? "checked" : "" }}><label for="star2">★</label>
                                         <input id="star1" type="radio" name="post[star]" value="1" {{ $post->star =="1"? "checked" : "" }}><label for="star1">★</label>
                                     </div>
+                                    <p class="star__error" style="color:red">{{ $errors->first('post.star') }}</p>
                                 </td>
                             </tr>
                         </table>
@@ -101,6 +103,7 @@
                         <div class="body">
                             <h3>口コミ</h3>
                             <textarea name="post[body]">{{ $post->body ?? "" }}</textarea>
+                            <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
                         </div>
                         <p>＊治療までのスムーズさを比較するための項目です。</p>
                         <p>　例えば診察は、初診で連絡してからだいたい何日後に予約が取れたか（当日受付なら０日）</p>

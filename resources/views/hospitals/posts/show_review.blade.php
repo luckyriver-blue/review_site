@@ -36,8 +36,7 @@
             <h2 align=center>{{ $post->hospital->name }}</h2>
             <div class='post', align=center>
                 @if (Auth::id() == $post->user->id)
-                    <h2>口コミ</h2>
-                    <h3>マイページで編集・削除ができます</h3>
+                    <h3>口コミはマイページで編集・削除ができます</h3>
                 @else
                     <h2>
                         @if (!is_null($post->user->age))
