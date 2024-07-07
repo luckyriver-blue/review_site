@@ -17,57 +17,52 @@
             }
         </style>
     </head>
-    <body class="antialiased">
-        <div>
-            <p align=right>ログイン</p>
-                <h1>病院口コミサイト</h1>
-                <h2>
-                    ホーム
-                    検索
-                    口コミを書く
-                    マイページ
-                </h2>
-        <div>
-        <hr>
-        <div>
-            <p>都道府県</p>
-            <p>フリーワード</p>
-            <p>この条件で絞り込む</p>
-        </div>
-        <hr>
-        <div>
-            <div class="hospitals">
-                @foreach ($hospitals as $hospital)
-                    <div class="hospital">
-                        <h2 class="name">
-                            <a href="/posts/hospital/create/{{ $hospital->id }}">{{ $hospital->name }} {{ $hospital->place }}</a>
-                        </h2>
+    <x-app-layout>
+        <x-slot name="header">
+            口コミを書く
+        </x-slot>
+        <body class="antialiased">
+            <div>
+                <p>都道府県</p>
+                <p>フリーワード</p>
+                <p>この条件で絞り込む</p>
+            </div>
+            <hr>
+            <div>
+                <div class="hospitals">
+                    @foreach ($hospitals as $hospital)
+                        <div class="hospital">
+                            <h2 class="name">
+                                <a href="/posts/hospital/create/{{ $hospital->id }}">{{ $hospital->name }} {{ $hospital->place }}</a>
+                            </h2>
+                        </div>
+                    @endforeach
+                    <div class="paginate">
+                        {{ $hospitals->links() }}
                     </div>
-                @endforeach
-                <div class="paginate">
-                    {{ $hospitals->links() }}
+                </div>
+                <hr>
+                <div class="add_hospital">
+                    <form action="/posts/hospital/create" method="POST">
+                        @csrf
+                        <table>
+                            <tr class='name'>
+                                <th>病院名</th>
+                                <td>
+                                    <input type="text" name="hospital[name]">
+                                </td>
+                            </tr>
+                            <tr class="place">
+                                <th>場所</th>
+                                <td>
+                                    <input type="text" name="hospital[place]">
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="submit" value="病院を追加する"/>
+                    </form>
                 </div>
             </div>
-            <div class="add_hospital">
-                <form action="/posts/hospital/create" method="POST">
-                    @csrf
-                    <table>
-                        <tr class='name'>
-                            <th>病院名</th>
-                            <td>
-                                <input type="text" name="hospital[name]">
-                            </td>
-                        </tr>
-                        <tr class="place">
-                            <th>場所</th>
-                            <td>
-                                <input type="text" name="hospital[place]">
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="submit" value="病院を追加する"/>
-                </form>
-            </div>
-        </div>
-    </body>
+        </body>
+    </x-app-layout>
 </html>
