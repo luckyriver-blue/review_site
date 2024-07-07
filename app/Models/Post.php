@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Hospital;
 use App\Models\Helpful;
@@ -15,13 +16,7 @@ class Post extends Model
 {
     use SoftDeletes;
     use HasFactory;
-    
-    public function getPaginateByLimit(int $limit_count = 10)
-    {
-        return $this->withCount('helpfuls')
-                    ->orderBy('helpfuls_count', 'DESC')
-                    ->paginate($limit_count);
-    }
+
     public static function getAverageStars()
     {
         return $hospitalsWithAverageStars = Post::select('hospital_id', DB::raw('AVG(star) as average_stars'))
@@ -62,6 +57,40 @@ class Post extends Model
             }
         });
         return $bodyPart;
+    }
+    public function scopeGetSortPosts(Builder $query, $sortPosts)
+    {
+        if ($sortPosts === "helpful") {
+            $query->withCount('helpfuls')
+                  ->orderBy('helpfuls_count', 'DESC');
+        } else {
+            $query->orderBy('updated_at', 'DESC');
+        }
+        
+        return $query;
+    }
+    public function scopeFilterByDepartment(Builder $query, $searchHospital_Department) {
+        //診療科で口コミ検索
+        if (isset($searchHospital_Department)) {
+            $query->where('hospital_department_id', $searchHospital_Department);
+        }
+        return $query;
+    }
+    public function scopeFilter(Builder $query, $keyword)
+    {
+        //フリーワード検索
+        if(!empty($keyword)) {
+            $query->where('desease', 'LIKE', "%{$keyword}%")
+                ->orwhere('body', 'LIKE', "%{$keyword}%")
+                ->orwhereHas('hospital_department', function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', "%{$keyword}%");
+             });
+        }
+        return $query;
+    }
+    public static function scopeGetPostsPaginateByLimit(Builder $query, int $limit_count = 10)
+    {
+        return $query->paginate($limit_count);
     }
     public function getMyPostsPaginate(int $limit_count = 10)
     {

@@ -33,13 +33,33 @@
             <div>
             <hr>
             <div>
-                <h2>総合病院</h2>
-                <p>場所</p>
-                <h3>条件</h3>
-                <p>診療科</p>
-                <p>フリーワード</p>
-                <p>この条件で絞り込む</p>
-                <p align=right>参考になった順</p>
+                <h1>{{ $hospital->name }}</h1>
+                <p>📍{{ $hospital->place }}</p>
+                <div class="search">
+                    <h3>条件</h3>
+                    <form action="/hospitals/{{ $hospital->id }}" method="GET">
+                        <div class="hospital_department">
+                            <p>診療科</p>
+                            <select class="block mt-1 w-full" name="search_hospital_department">
+                                <option value="">-未選択-</option>
+                                @foreach ($hospital_departments as $hospital_department)
+                                    <option value="{{ $hospital_department->id }}" {{ $searchHospital_Department == $hospital_department->id ? "selected" : "" }}>{{ $hospital_department->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="keyword">
+                            <p>フリーワード</p>
+                            <input type="text" name="keyword" value="{{ $keyword }}" placeholder="診療科、病名などで検索">
+                            <input type="submit" value ="この条件で検索">
+                        </div>
+                        <div class="sort" align="right">
+                            <select class="block mt-1 w-full" name="sort_posts">
+                                <option value="helpful" {{ $sortPosts == "helpful" ? "selected" : "" }}>参考になった順</option>
+                                <option value="new" {{ $sortPosts == "new" ? "selected" : "" }}>新着順</option>
+                            </select>
+                        </div> 
+                    </form>
+                </div>
             </div>
             <hr>
             <div>
@@ -48,7 +68,22 @@
                     @foreach ($posts as $post)
                         <div class='post'>
                             <h2 class='title'>
-                                <a href="/posts/{{ $post->id }}">〇〇の口コミ</a>
+                                <a href="/posts/{{ $post->id }}">
+                                    @if (!is_null($post->user->age))
+                                        {{ $post->user->age==8 ? $post->user->age . '0代以上':$post->user->age . '0代' }}
+                                    @endif
+                                    @if (!is_null($post->user->sex))
+                                        {{ $post->user->sex==1 ? '男性':'女性' }}
+                                    @endif
+                                    @if (!is_null($post->user->myself))
+                                        {{$post->user->myself==1 ? '本人':'本人でない' }}
+                                    @endif
+                                    @if (is_null($post->user->age) && is_null($post->user->sex) && is_null($post->user->myself))
+                                        口コミ
+                                    @else 
+                                        の口コミ
+                                    @endif
+                                </a>
                             </h2>
                             <h3>投稿日　{{ $post->created_at->format('Y/m/d') }}　　{{ $post->helpfuls->count() }}人の参考になった</h3>
                             <br>

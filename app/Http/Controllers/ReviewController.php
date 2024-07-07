@@ -51,13 +51,31 @@ class ReviewController extends Controller
             'averageSmooth_ExaminationMap', 
             'averageSmooth_HospitalizationMap',
             'bodyPart', 
-            'bodyPart'
+            'bodyPart',
         ));
     }
     
-    public function HospitalReview(Post $post)
+    public function HospitalReview(Hospital $hospital, Post $post, Hospital_Department $hospital_department, Request $request)
     {
-        return view('hospitals.posts.hospital_review')->with(['posts' => $post->getPaginateByLimit()]);
+        $sortPosts = $request->input('sort_posts');
+        $searchHospital_Department = $request->input('search_hospital_department');
+        $keyword = $request->input('keyword');
+        
+        $posts = Post::getSortPosts($sortPosts)
+                ->filterByDepartment($searchHospital_Department)
+                ->filter($keyword)
+                ->getPostsPaginateByLimit();
+                
+        $hospital_departments = $hospital_department->get();
+                
+        return view('hospitals.posts.hospital_review', [
+            'hospital' => $hospital,
+            'posts' => $posts,
+            'sortPosts' => $sortPosts,
+            'searchHospital_Department' => $searchHospital_Department,
+            'keyword' => $keyword,
+            'hospital_departments' => $hospital_departments,
+        ]);
     }
     public function ShowReview(Post $post)
     {
