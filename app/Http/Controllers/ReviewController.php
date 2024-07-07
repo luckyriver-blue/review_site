@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
+    public function Top(Hospital $hospital, Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $hospitals = Hospital::SortHospitals('star')
+                    ->limit(3)
+                    ->get();
+                    
+        return view('hospitals.top', ['hospitals' => $hospitals, 'keyword' => $keyword]);
+    }
     public function Hospitals(Post $post, Hospital $hospital, Hospital_Department $hospital_department, Request $request)
     {
         $averageStars = Post::getAverageStars();
@@ -27,7 +36,7 @@ class ReviewController extends Controller
         $keyword = $request->input('keyword');
         $searchHospital_Department = $request->input('search_hospital_department');
         $searchPlace = $request->input('search_place');
-        $sortHospitals = $request->input('sort_hospitals');
+        $sortHospitals = $request->input('sort_hospitals', 'star');
         
         $hospitals = Hospital::sortHospitals($sortHospitals)
                     ->filter($keyword)

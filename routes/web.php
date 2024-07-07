@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::group(['middleware' => ['auth']], function(){
+    Route::get('/', [ReviewController::class, 'Top']);
     Route::get('/hospitals', [ReviewController::class, 'Hospitals']);
     Route::get('/hospitals/{hospital}', [ReviewController::class, 'HospitalReview']);
     Route::get('/posts/hospital/create', [ReviewController::class, 'SelectCreate']);

@@ -63,7 +63,7 @@
             </div>
             <hr>
             <div>
-                <h3>口コミ一覧</h3>
+                <h3>{{ $hospital->name }}の口コミ一覧</h3>
                 <div class='posts'>
                     @foreach ($posts as $post)
                         <div class='post'>
