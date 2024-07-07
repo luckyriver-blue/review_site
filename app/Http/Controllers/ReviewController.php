@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\Hospital;
 use App\Models\Hospital_Department;
@@ -108,7 +109,7 @@ class ReviewController extends Controller
         $hospital->fill($input)->save();
         return redirect()->back();
     }
-    public function store(Request $request, Post $post)
+    public function store(PostRequest $request, Post $post)
     {
         $input = $request['post'];
         $input['user_id'] = Auth::id();
@@ -132,7 +133,7 @@ class ReviewController extends Controller
     {
         return view('hospitals.posts.edit', ['post' => $post, 'hospital_departments' => $hospital_department->get()]);
     }
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
         $input = $request['post'];
         $post->fill($input)->save();
