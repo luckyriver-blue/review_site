@@ -19,19 +19,9 @@
     </head>
     <x-app-layout>
         <x-slot name="header">
-            病院の口コミ
+            検索
         </x-slot>
         <body class="antialiased">
-            <div>
-                <p align=right>ログイン</p>
-                    <h1>病院口コミサイト</h1>
-                    <h2>ホーム
-                        検索
-                        口コミを書く
-                        マイページ
-                    </h2>
-            <div>
-            <hr>
             <div>
                 <h1>{{ $hospital->name }}</h1>
                 <p>📍{{ $hospital->place }}</p>
@@ -61,6 +51,7 @@
                     </form>
                 </div>
             </div>
+            <br>
             <hr>
             <div>
                 <h3>{{ $hospital->name }}の口コミ一覧</h3>
@@ -86,7 +77,6 @@
                                 </a>
                             </h2>
                             <h3>投稿日　{{ $post->created_at->format('Y/m/d') }}　　{{ $post->helpfuls->count() }}人の参考になった</h3>
-                            <br>
                             @if(!is_null($post->hospital_department_id))
                                 <h3>{{ $post->hospital_department->name }}</h3>
                             @endif
@@ -123,6 +113,7 @@
                                 @endif
                             </div>
                         </div>
+                        <br>
                     @endforeach
                 </div>
                 <div class='paginate'>
