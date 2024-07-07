@@ -51,7 +51,8 @@ class Post extends Model
         $hospitalIds->each(function ($hospitalId) use (&$bodyPart) {
             $maxHelpfulPost = Self::where('hospital_id', $hospitalId->hospital_id)
                             ->whereNotNull('body')
-                            ->orderBy('helpful', 'DESC')
+                            ->withCount('helpfuls')
+                            ->orderBy('helpfuls_count', 'DESC')
                             ->first();
             if($maxHelpfulPost === NULL) {
                 $bodyPart[$hospitalId->hospital_id] = "なし";
