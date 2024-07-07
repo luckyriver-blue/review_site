@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/', [ReviewController::class, 'Top']);
-    Route::get('/hospitals', [ReviewController::class, 'Hospitals']);
+    Route::get('/hospitals', [ReviewController::class, 'Hospitals'])->name('hospitals');
     Route::get('/hospitals/{hospital}', [ReviewController::class, 'HospitalReview']);
     Route::get('/posts/hospital/create', [ReviewController::class, 'SelectCreate']);
     Route::get('/posts/hospital/create/{hospital}', [ReviewController::class, 'create']);
