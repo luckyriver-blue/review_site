@@ -58,11 +58,11 @@
                                     </select>
                                 </td>
                             </tr>
-                            <tr class="desease">
+                            <tr class="disease">
                                 <th>病名</th>
                                 <td>
-                                    <input type="text" name="post[desease]" value="{{ $post->desease ?? "" }}"/>
-                                    <p class="desease__error" style="color:red">{{ $errors->first('post.desease') }}</p>
+                                    <input type="text" name="post[disease]" value="{{ $post->disease ?? "" }}"/>
+                                    <p class="disease__error" style="color:red">{{ $errors->first('post.disease') }}</p>
                                 </td>
                             </tr>
                             <tr class="smooth">

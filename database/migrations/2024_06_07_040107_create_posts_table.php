@@ -19,7 +19,7 @@ return new class extends Migration
             $table->char('myself', 1)->nullable();
             $table->foreignId('hospital_id')->nullable(false)->constrained()->onDelete('cascade');
             $table->foreignId('hospital_department_id')->nullable()->constrained()->onDelete('cascade');
-            $table->string('desease',30)->nullable();
+            $table->string('disease',30)->nullable();
             $table->smallInteger('smooth_examination')->nullable();
             $table->smallInteger('smooth_hospitalization')->nullable();
             $table->tinyInteger('star')->nullable(false);

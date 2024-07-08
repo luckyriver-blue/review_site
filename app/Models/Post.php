@@ -80,7 +80,7 @@ class Post extends Model
     {
         //フリーワード検索
         if(!empty($keyword)) {
-            $query->where('desease', 'LIKE', "%{$keyword}%")
+            $query->where('disease', 'LIKE', "%{$keyword}%")
                 ->orwhere('body', 'LIKE', "%{$keyword}%")
                 ->orwhereHas('hospital_department', function ($query) use ($keyword) {
                     $query->where('name', 'LIKE', "%{$keyword}%");
@@ -115,7 +115,7 @@ class Post extends Model
         'hospital_id',
         'myself',
         'hospital_department_id',
-        'desease',
+        'disease',
         'smooth_examination',
         'smooth_hospitalization',
         'star',

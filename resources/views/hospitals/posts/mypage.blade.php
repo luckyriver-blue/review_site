@@ -74,8 +74,8 @@
                     @if(!is_null($post->hospital_department_id))
                         <h3>{{ $post->hospital_department->name }}科</h3>
                     @endif
-                    @if(!is_null($post->desease))
-                        <h3>{{ $post->desease }}</h3>
+                    @if(!is_null($post->disease))
+                        <h3>{{ $post->disease }}</h3>
                     @endif
                     @if(!is_null($post->smooth_examination) && !is_null($post->smooth_hospitalization))
                         <h3>治療までのスムーズさ</h3>

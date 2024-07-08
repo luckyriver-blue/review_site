@@ -15,7 +15,7 @@ class PostRequest extends FormRequest
     public function rules():array
     {
         return [
-            'post.desease' => 'nullable|string|max:30',
+            'post.disease' => 'nullable|string|max:30',
             'post.star' => 'required',
             'post.body' => 'nullable|string|max:500',
         ];
