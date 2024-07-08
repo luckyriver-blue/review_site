@@ -68,11 +68,11 @@
                                     </select>
                                 </td>
                             </tr>
-                            <tr class="desease">
+                            <tr class="disease">
                                 <th>病名</th>
                                 <td>
-                                    <input type="text" name="post[desease]" placeholder="インフルエンザ" value="{{ old('post.desease') }}"/>
-                                    <p class="desease__error" style="color:red">{{ $errors->first('post.desease') }}</p>
+                                    <input type="text" name="post[disease]" placeholder="インフルエンザ" value="{{ old('post.disease') }}"/>
+                                    <p class="disease__error" style="color:red">{{ $errors->first('post.disease') }}</p>
                                 </td>
                             </tr>
                             <tr class="smooth">

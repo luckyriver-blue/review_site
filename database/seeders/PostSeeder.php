@@ -19,12 +19,11 @@ class PostSeeder extends Seeder
         DB::table('posts')->insert([
             'user_id' => 1,
             'hospital_id' => 1,
-            'desease' => '風邪',
+            'disease' => '風邪',
             'smooth_examination' => 4,
             'smooth_hospitalization' => 10,
             'star' => 5,
             'body' => 'ブラボー！',
-            'helpful' => 2,
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
