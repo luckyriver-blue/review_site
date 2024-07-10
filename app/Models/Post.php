@@ -58,8 +58,9 @@ class Post extends Model
         });
         return $bodyPart;
     }
-    public function scopeGetSortPosts(Builder $query, $sortPosts)
+    public function scopeGetSortPosts(Builder $query, $sortPosts, $hospitalId)
     {
+        $query->where('hospital_id', $hospitalId);
         if ($sortPosts === "helpful") {
             $query->withCount('helpfuls')
                   ->orderBy('helpfuls_count', 'DESC');
