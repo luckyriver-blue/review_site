@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Http\Requests\HospitalRequest;
 use App\Models\Post;
 use App\Models\Hospital;
 use App\Models\Hospital_Department;
@@ -103,7 +104,7 @@ class ReviewController extends Controller
             'hospital_departments' => $hospital_department->get(),
             ]);
     }
-    public function add(Request $request, Hospital $hospital)
+    public function add(HospitalRequest $request, Hospital $hospital)
     {
         $input = $request['hospital'];
         $hospital->fill($input)->save();
