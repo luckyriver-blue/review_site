@@ -17,8 +17,8 @@ class HospitalSeeder extends Seeder
     public function run(): void
     {
         DB::table('hospitals')->insert([
-            'name' => '総合病院',
-            'place' => 'さいたま市',
+            'name' => 'さいたま市立病院',
+            'place' => '埼玉県',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
             
