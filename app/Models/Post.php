@@ -17,25 +17,16 @@ class Post extends Model
     use SoftDeletes;
     use HasFactory;
 
-    public static function getAverageStars()
-    {
-        return $hospitalsWithAverageStars = Post::select('hospital_id', DB::raw('AVG(star) as average_stars'))
-                ->groupBy('hospital_id')
-                ->orderBy('average_stars', 'DESC')
-                ->get();
-    }
     public static function getAverageSmooth_Examination()
     {
-        return $hospitalsWithAverageSmooth_Examination = Post::select('hospital_id', DB::raw('AVG(smooth_examination) as average_smooth_examination'))
+        return Post::select('hospital_id', DB::raw('AVG(smooth_examination) as average_smooth_examination'))
                 ->groupBy('hospital_id')
-                ->orderBy('average_smooth_examination')
                 ->get();
     }
     public static function getAverageSmooth_Hospitalization()
     {
-        return $hospitalsWithAverageSmooth_Hospitalization = Post::select('hospital_id', DB::raw('AVG(smooth_hospitalization) as average_smooth_hospitalization'))
+        return Post::select('hospital_id', DB::raw('AVG(smooth_hospitalization) as average_smooth_hospitalization'))
                 ->groupBy('hospital_id')
-                ->orderBy('average_smooth_hospitalization')
                 ->get();
     }
     public static function getBodyPart()
