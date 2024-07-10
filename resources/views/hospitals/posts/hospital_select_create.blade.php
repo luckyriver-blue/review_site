@@ -24,7 +24,7 @@
         <body class="antialiased">
             <div>
                 <div class="hospitals">
-                    <h2>口コミを書く病院を選択する</h2>
+                    <h2>病院を選択する</h2>
                     @foreach ($hospitals as $hospital)
                         <div class="hospital">
                             <h2 class="name">
@@ -44,13 +44,15 @@
                             <tr class='name'>
                                 <th>病院名</th>
                                 <td>
-                                    <input type="text" name="hospital[name]">
+                                    <input type="text" name="hospital[name]" value="{{ old('hospital.name') }}">
+                                    <p class="name__error" style="color:red">{{ $errors->first('hospital.name') }}</p>
                                 </td>
                             </tr>
                             <tr class="place">
                                 <th>場所</th>
                                 <td>
-                                    <input type="text" name="hospital[place]">
+                                    <input type="text" name="hospital[place]" value="{{ old('hospital.place') }}" placeholder="東京都">
+                                    <p class="place__error" style="color:red">{{ $errors->first('hospital.place') }}</p>
                                 </td>
                             </tr>
                         </table>
