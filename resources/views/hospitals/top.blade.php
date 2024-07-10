@@ -33,8 +33,12 @@
                 <div class="star_hospitals">
                     @foreach ($hospitals as $key => $hospital)
                         <h2 class='name'>
-                                <a href="/hospitals/{{ $hospital->id }}">{{ $hospital->name }}</a>
-                                <span>{{ $key + 1 }}位</span>
+                            <span>{{ $key + 1 }}位</span>
+                            <a href="/hospitals/{{ $hospital->id }}">{{ $hospital->name }}</a>
+                            ★
+                            @if (isset($hospital->average_stars))
+                                {{ number_format($hospital->average_stars, 2) }}
+                            @endif
                         </h2>
                     @endforeach
                     <a href="/hospitals">・・・</a>
