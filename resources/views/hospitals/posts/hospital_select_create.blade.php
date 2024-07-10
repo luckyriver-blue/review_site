@@ -25,13 +25,18 @@
             <div>
                 <div class="hospitals">
                     <h2>病院を選択する</h2>
-                    @foreach ($hospitals as $hospital)
-                        <div class="hospital">
-                            <h2 class="name">
-                                <a href="/posts/hospital/create/{{ $hospital->id }}">{{ $hospital->name }} {{ $hospital->place }}</a>
-                            </h2>
-                        </div>
-                    @endforeach
+                    
+                    <table>
+                        @foreach ($hospitals as $hospital)
+                        <tr class="hospital" align="left">
+                            <th class="name">
+                                <a href="/posts/hospital/create/{{ $hospital->id }}">{{ $hospital->name }}</a>
+                            </th>
+                            <td class="place">{{ $hospital->place }}</td>
+                        </tr>
+                        @endforeach
+                    </table>
+                    
                     <div class="paginate">
                         {{ $hospitals->links() }}
                     </div>
@@ -44,14 +49,14 @@
                             <tr class='name'>
                                 <th>病院名</th>
                                 <td>
-                                    <input type="text" name="hospital[name]" value="{{ old('hospital.name') }}">
+                                    <input type="text" name="hospital[name]" value="{{ old('hospital.name') }}" placeholder="例) 日本総合病院">
                                     <p class="name__error" style="color:red">{{ $errors->first('hospital.name') }}</p>
                                 </td>
                             </tr>
                             <tr class="place">
-                                <th>場所</th>
+                                <th>都道府県</th>
                                 <td>
-                                    <input type="text" name="hospital[place]" value="{{ old('hospital.place') }}" placeholder="東京都">
+                                    <input type="text" name="hospital[place]" value="{{ old('hospital.place') }}" placeholder="例) 東京都">
                                     <p class="place__error" style="color:red">{{ $errors->first('hospital.place') }}</p>
                                 </td>
                             </tr>
