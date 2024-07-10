@@ -25,11 +25,12 @@
                 <a href="/posts/mypage/{{ Auth::user()->id }}">マイページへ</a> 
             </h3>
             <br>
-            <h2 align=center>{{ $post->hospital->name }}</h2>
             <div class='post', align=center>
                 @if (Auth::id() == $post->user->id)
                     <h3>口コミはマイページで編集・削除ができます</h3>
+                    <h2>{{ $post->hospital->name }}</h2>
                 @else
+                    <h2>{{ $post->hospital->name }}</h2>
                     <h2>
                         @if (!is_null($post->user->age))
                             {{ $post->user->age==8 ? $post->user->age . '0代以上':$post->user->age . '0代' }}
@@ -49,7 +50,7 @@
                 @endif
                 <h3>投稿日　{{ $post->created_at->format('Y/m/d') }}　　{{ $post->helpfuls->count() }}人の参考になった</h3>
                 @if(!is_null($post->hospital_department_id))
-                    <h3>{{ $post->hospital_department->name }}科</h3>
+                    <h3>{{ $post->hospital_department->name }}</h3>
                 @endif
                 @if(!is_null($post->disease))
                     <h3>{{ $post->disease }}</h3>
@@ -63,7 +64,7 @@
                 @if(!is_null($post->smooth_hospitalization))
                     <h3>入院・手術まで{{ $post->smooth_hospitalization }}日</h3>
                 @endif
-                <h3>評価　{{ $post->star }}</h3>
+                <h3>★  {{ $post->star }}</h3>
                 @if(!is_null($post->body))
                     <p>{{ $post->body }}</p>
                 @endif
