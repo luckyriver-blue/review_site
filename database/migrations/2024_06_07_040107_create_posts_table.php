@@ -24,7 +24,6 @@ return new class extends Migration
             $table->smallInteger('smooth_hospitalization')->nullable();
             $table->tinyInteger('star')->nullable(false);
             $table->string('body',500)->nullable();
-            $table->Integer('helpful')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
