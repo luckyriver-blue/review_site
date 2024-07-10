@@ -71,7 +71,7 @@ class ReviewController extends Controller
         $searchHospital_Department = $request->input('search_hospital_department');
         $keyword = $request->input('keyword');
         
-        $posts = Post::getSortPosts($sortPosts)
+        $posts = Post::getSortPosts($sortPosts, $hospital->id)
                 ->filterByDepartment($searchHospital_Department)
                 ->filter($keyword)
                 ->getPostsPaginateByLimit();
