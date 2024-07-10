@@ -72,7 +72,7 @@
                     </h2>
                     <h3>投稿日　{{ $post->created_at->format('Y/m/d') }}　　{{ $post->helpfuls->count() }}人の参考になった</h3>
                     @if(!is_null($post->hospital_department_id))
-                        <h3>{{ $post->hospital_department->name }}科</h3>
+                        <h3>{{ $post->hospital_department->name }}</h3>
                     @endif
                     @if(!is_null($post->disease))
                         <h3>{{ $post->disease }}</h3>
