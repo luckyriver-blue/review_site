@@ -26,7 +26,7 @@
                 <h1>{{ $hospital->name }}</h1>
                 <p>📍{{ $hospital->place }}</p>
                 <div class="search">
-                    <h3>条件</h3>
+                    <h3>検索条件</h3>
                     <form action="/hospitals/{{ $hospital->id }}" method="GET">
                         <div class="hospital_department">
                             <p>診療科</p>
@@ -56,6 +56,9 @@
             <div>
                 <h3>{{ $hospital->name }}の口コミ一覧</h3>
                 <div class='posts'>
+                    @if ($posts->isEmpty())
+                        <p>該当する投稿がありませんでした。</p>
+                    @endif
                     @foreach ($posts as $post)
                         <div class='post'>
                             <h2 class='title'>
