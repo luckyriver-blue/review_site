@@ -92,7 +92,7 @@
                             @if(!is_null($post->smooth_hospitalization))
                                 <h3>入院・手術まで{{ $post->smooth_hospitalization }}日</h3>
                             @endif
-                            <h3>評価　{{ $post->star }}</h3>
+                            <h3>★ {{ $post->star }}</h3>
                             @if(!is_null($post->body))
                                 <p>{{ $post->body }}</p>
                             @endif
