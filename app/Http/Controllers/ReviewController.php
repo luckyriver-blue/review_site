@@ -17,7 +17,7 @@ class ReviewController extends Controller
     public function Top(Hospital $hospital, Request $request)
     {
         $keyword = $request->input('keyword');
-        $hospitals = Hospital::SortHospitals('star')
+        $hospitals = Hospital::SortHospitals(null, 'star')
                     ->limit(3)
                     ->get();
                     
