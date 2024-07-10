@@ -31,6 +31,7 @@
                 </div>
                 <hr>
                 <div class="star_hospitals">
+                    <h1>評価が高い病院ランキング</h1>
                     @foreach ($hospitals as $key => $hospital)
                         <h2 class='name'>
                             <span>{{ $key + 1 }}位</span>
