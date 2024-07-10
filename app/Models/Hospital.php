@@ -16,26 +16,28 @@ class Hospital extends Model
     use SoftDeletes;
     use HasFactory;
     
-    public function scopeSortHospitals(Builder $query, $sortHospitals)
+    public function scopeSortHospitals(Builder $query, $searchHospital_Department, $sortHospitals)
     {
+        $query->join('posts', function ($join) {
+                        $join->on('hospitals.id', '=', 'posts.hospital_id')
+                            ->whereNull('posts.deleted_at'); // `posts` テーブルの論理削除も考慮
+                    });
+        //診療科が指定されていたら診療科の平均にする
+        if (isset($searchHospital_Department)) {
+                $query->where('hospital_department_id', $searchHospital_Department);
+            }
+        $query->select('hospitals.id', 'hospitals.name', 'hospitals.place', 
+                        DB::raw('AVG(posts.star) as average_stars'), 
+                        DB::raw('AVG(posts.smooth_examination) as average_smooth_examination'), 
+                        DB::raw('AVG(posts.smooth_hospitalization) as average_smooth_hospitalization'))
+                ->groupBy('hospitals.place', 'hospitals.name', 'hospitals.id');
+                    
         if ($sortHospitals === "star") {
         // 平均評価でソート
-        $query->join('posts', function ($join) {
-                    $join->on('hospitals.id', '=', 'posts.hospital_id')
-                        ->whereNull('posts.deleted_at'); // `posts` テーブルの論理削除も考慮
-                })
-              ->select('hospitals.id', 'hospitals.name', 'hospitals.place', DB::raw('AVG(posts.star) as average_stars'))
-              ->groupBy('hospitals.place', 'hospitals.name', 'hospitals.id')
-              ->orderBy('average_stars', 'DESC');
+            $query->orderBy('average_stars', 'DESC');
         } else {
         // スムーズな診察と入院の合計でソート
-        $query->join('posts', function ($join) {
-                    $join->on('hospitals.id', '=', 'posts.hospital_id')
-                         ->whereNull('posts.deleted_at'); // `posts` テーブルの論理削除も考慮
-                })
-              ->select('hospitals.id', 'hospitals.name', 'hospitals.place', DB::raw('AVG(posts.smooth_examination + posts.smooth_hospitalization) as average_smooth'))
-              ->groupBy('hospitals.place', 'hospitals.name', 'hospitals.id',)
-              ->orderByRaw('CASE WHEN posts.smooth_examination IS NULL AND posts.smooth_hospitalization IS NULL THEN 1 ELSE 0 END, average_smooth ASC');
+            $query->orderByRaw('CASE WHEN AVG(posts.smooth_examination) IS NULL THEN 1 ELSE 0 END, AVG(posts.smooth_examination) + AVG(posts.smooth_hospitalization) ASC');
         }
         return $query;
     }
@@ -49,21 +51,12 @@ class Hospital extends Model
             'id',          // Foreign key on HospitalDepartment table
             'id',          // Local key on Hospital table
             'hospital_department_id' // Local key on Post table
-        );
+        )->distinct('hospital_departments.id');
     }
     public function scopeFilterByPlace(Builder $query, $searchPlace) {
         //場所で検索
         if (!empty($searchPlace)) {
             $query->where('place', 'LIKE', "%{$searchPlace}%");
-        }
-        return $query;
-    }
-    public function scopeFilterByDepartment(Builder $query, $searchHospital_Department) {
-        //診療科で病院検索
-        if (isset($searchHospital_Department)) {
-            $query->whereHas('departments', function ($query) use ($searchHospital_Department) {
-                $query->where('hospital_departments.id', $searchHospital_Department);
-            });
         }
         return $query;
     }
@@ -81,7 +74,7 @@ class Hospital extends Model
     }
     public static function scopeGetHospitalsPaginateByLimit(Builder $query, int $limit_count = 10)
     {
-        return $query->with('departments')->paginate($limit_count);
+        return $query->with('departments')->paginate($limit_count);//診療科も取得
     }
     public function getSelectHospital(int $limit_count = 20)
     {

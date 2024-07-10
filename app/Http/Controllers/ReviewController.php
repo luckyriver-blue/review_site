@@ -25,26 +25,17 @@ class ReviewController extends Controller
     }
     public function Hospitals(Post $post, Hospital $hospital, Hospital_Department $hospital_department, Request $request)
     {
-        $averageStars = Post::getAverageStars();
-        $averageSmooth_Examination = Post::getAverageSmooth_Examination();
-        $averageSmooth_Hospitalization = Post::getAverageSmooth_Examination();
         $bodyPart = Post::getBodyPart();
-        
-        //病院IDをキーにして平均を取得するための連想配列
-        $averageStarsMap = $averageStars->keyBy('hospital_id');
-        $averageSmooth_ExaminationMap = $averageSmooth_Examination->keyBy('hospital_id');
-        $averageSmooth_HospitalizationMap = $averageSmooth_Hospitalization->keyBy('hospital_id');
         
         $keyword = $request->input('keyword');
         $searchHospital_Department = $request->input('search_hospital_department');
         $searchPlace = $request->input('search_place');
         $sortHospitals = $request->input('sort_hospitals', 'star');
         
-        $hospitals = Hospital::sortHospitals($sortHospitals)
+        $hospitals = Hospital::sortHospitals($searchHospital_Department, $sortHospitals)
                     ->filter($keyword)
                     ->filterByPlace($searchPlace)
-                    ->filterByDepartment($searchHospital_Department)
-                    ->getHospitalsPaginateByLimit(); //診療科も取得
+                    ->getHospitalsPaginateByLimit(); 
         
         
         $hospital_departments = $hospital_department->get();
@@ -58,11 +49,7 @@ class ReviewController extends Controller
             'searchPlace',
             'searchHospital_Department',
             'sortHospitals',
-            'averageStarsMap', 
-            'averageSmooth_ExaminationMap', 
-            'averageSmooth_HospitalizationMap',
             'bodyPart', 
-            'bodyPart',
         ));
     }
     
