@@ -77,7 +77,7 @@
                     @if(!is_null($post->disease))
                         <h3>{{ $post->disease }}</h3>
                     @endif
-                    @if(!is_null($post->smooth_examination) && !is_null($post->smooth_hospitalization))
+                    @if(!is_null($post->smooth_examination) || !is_null($post->smooth_hospitalization))
                         <h3>治療までのスムーズさ</h3>
                     @endif
                     @if(!is_null($post->smooth_examination))
