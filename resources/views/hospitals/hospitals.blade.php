@@ -73,7 +73,7 @@
                                     {{ $department->name }}@if (!$loop->last), @endif
                                 @endforeach
                             @endif
-                            @if(isset($hospital->average_smooth_examination) && isset($hospital->average_smooth_hospitalization))
+                            @if(isset($hospital->average_smooth_examination) || isset($hospital->average_smooth_hospitalization))
                                 <h3>治療までのスムーズさ</h3>
                             @endif
                             @if(isset($hospital->average_smooth_examination))
