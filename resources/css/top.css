@@ -1,0 +1,62 @@
+body {
+    margin: 0 auto; /* デフォルトの余白をリセット */
+}
+
+.color {
+    height: 100vh; /* ビューポートの高さに合わせる */
+    background-color: #f0f6da;
+}
+.search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:30px;
+}
+.search-box {
+    width: 300px;
+}
+
+.search-botton {
+    border: 1px solid #6b7280;
+    background-color: #ffffff;
+    cursor: pointer;
+    padding: 5px;
+    width: 80px;
+}
+
+.star_hospitals {
+    margin: 20px;
+}
+
+.ranking-title {
+    font-size: 30px;
+}
+
+.gold, .silver, .bronze, .continue {
+    background-color: #ffffff;
+    text-align: center;
+    width: 300px;
+    border-radius: 10px;
+    margin: 20px;
+    display: inline-block;
+}
+
+.gold {
+    border: 5px solid #ffd700;
+}
+
+.silver {
+    border: 5px solid #c0c0c0;
+}
+
+.bronze{
+    border: 5px solid #ac6b25;
+}
+
+.hospital{
+    font-size: 20px;
+}
+.number {
+    text-align: center;
+    font-size: 30px
+}
