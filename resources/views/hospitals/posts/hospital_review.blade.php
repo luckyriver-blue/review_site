@@ -91,10 +91,10 @@
                                     <h3>{{ $post->disease }}</h3>
                                 @endif
                                 @if(!is_null($post->smooth_examination) || !is_null($post->smooth_hospitalization))
-                                    <h3 class="smooth">治療までのスムーズさ</h3>
+                                    <h3 class="smooth">治療までのスムーズさ　</h3>
                                 @endif
                                 @if(!is_null($post->smooth_examination))
-                                    <h3 class="smooth-examination">診察まで{{ $post->smooth_examination }}日　</h3>
+                                    <h3 class="smooth-examination">診察まで{{ $post->smooth_examination }}日 </h3>
                                 @endif
                                 @if(!is_null($post->smooth_hospitalization))
                                     <h3 class="smooth-hospitalization">入院・手術まで{{ $post->smooth_hospitalization }}日</h3>

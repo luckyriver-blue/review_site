@@ -1,0 +1,66 @@
+body {
+    margin: 0 auto; /* デフォルトの余白をリセット */
+}
+
+.color {
+    min-height: 100vh; /* ビューポートの高さに合わせる */
+    background-color: #f0f6da;
+    padding-bottom: 50px;
+}
+
+.links {
+    text-decoration:underline;
+}
+
+.hospital-name {
+    text-align: left;
+    font-size: 30px;
+}
+
+.post {
+    margin: 20px auto;
+    border: 1px solid #6b7280;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    width: 600px;
+}
+
+.post-title {
+    font-size: 20px;
+}
+
+.post-details {
+    text-align: left; 
+    margin-left: 80px;
+    max-width: 500px;
+}
+
+.smooth, .smooth-examination, .smooth-hospitalization {
+    display: inline-block;
+}
+
+.smooth {
+    font-weight: bold;
+}
+
+.body-part {
+    border: 1px solid #6b7280;
+    border-radius: 3px;
+    width: 400px;
+    height: 150px;
+}
+
+.helpful-button {
+    border: 1px solid #6b7280;
+    border-radius: 20px;
+    text-align: center;
+    width: 200px;
+    height: 35px;
+    background-color: #ffffff;
+    margin: 20px;
+}
+
+.helpful-button:hover {
+    background-color: #f0f0f0;
+}
