@@ -72,10 +72,10 @@
                                     @endforeach
                                 @endif
                                 @if(isset($hospital->average_smooth_examination) || isset($hospital->average_smooth_hospitalization))
-                                    <h3 class="smooth">治療までのスムーズさ</h3>
+                                    <h3 class="smooth">治療までのスムーズさ　</h3>
                                 @endif
                                 @if(isset($hospital->average_smooth_examination))
-                                    <h3 class="smooth-examination">診察まで{{ number_format($hospital->average_smooth_examination, 2) }}日　</h3>
+                                    <h3 class="smooth-examination">診察まで{{ number_format($hospital->average_smooth_examination, 2) }}日 </h3>
                                 @endif
                                 @if(isset($hospital->average_smooth_hospitalization))
                                     <h3 class="smooth-hospitalization">入院・手術まで{{ number_format($hospital->average_smooth_hospitalization, 2) }}日</h3>
