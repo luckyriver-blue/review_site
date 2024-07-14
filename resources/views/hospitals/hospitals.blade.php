@@ -41,9 +41,9 @@
                         </div>
                         <p>フリーワード</p>
                         <input type="text" name="keyword" value="{{ $keyword }}" placeholder="病院名、場所、診療科で検索" class="search-box">
-                        <input type="submit" value ="この条件で検索" class="search-botton">
+                        <input type="submit" value ="この条件で検索" class="search-button">
                         <div class="sort" align="right">
-                            <select class="sort-botton" name="sort_hospitals">
+                            <select class="sort-button" name="sort_hospitals">
                                 <option value="star" {{ $sortHospitals == "star" ? "selected" : "" }}>高評価順</option>
                                 <option value="smooth" {{ $sortHospitals == "smooth" ? "selected" : "" }}>スムーズ順</option>
                             </select>
@@ -84,6 +84,7 @@
                                     <p class="body-part">{{ $bodyPart[$hospital->id] }}</p>
                                 @endif
                             </div>
+                            <hr>
                         @endforeach
                     </div>
                     <div class='paginate'>
