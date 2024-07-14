@@ -6,12 +6,14 @@ body {
     height: 100vh; /* ビューポートの高さに合わせる */
     background-color: #f0f6da;
 }
+
 .search {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding:30px;
 }
+
 .search-box {
     width: 300px;
 }

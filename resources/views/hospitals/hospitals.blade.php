@@ -16,22 +16,23 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+        <link rel="stylesheet" href="{{ asset('css/hospitals.css') }}">
     </head>
     <x-app-layout>
         <x-slot name="header">
             検索
         </x-slot>
         <body class="antialiased">
-            <div>
+            <div class="color">
                 <div class='search'>
                     <form action="/hospitals" method="GET">
                         <div class="place">
-                            <p>地名</p>
+                            <p>都道府県</p>
                             <input type="text" name="search_place" value="{{ $searchPlace }}">
                         </div>
                         <div class="hospital_department">
                             <p>診療科</p>
-                            <select class="block mt-1 w-full" name="search_hospital_department">
+                            <select class="block mt-1" name="search_hospital_department">
                                 <option value="">-未選択-</option>
                                 @foreach ($hospital_departments as $hospital_department)
                                     <option value="{{ $hospital_department->id }}" {{ $searchHospital_Department == $hospital_department->id ? "selected" : "" }}>{{ $hospital_department->name }}</option>
@@ -39,58 +40,55 @@
                             </select>
                         </div>
                         <p>フリーワード</p>
-                        <input type="text" name="keyword" value="{{ $keyword }}" placeholder="病院名、場所、診療科で検索">
-                        <input type="submit" value ="この条件で検索">
+                        <input type="text" name="keyword" value="{{ $keyword }}" placeholder="病院名、場所、診療科で検索" class="search-box">
+                        <input type="submit" value ="この条件で検索" class="search-botton">
                         <div class="sort" align="right">
-                            <select class="block mt-1 w-full" name="sort_hospitals">
+                            <select class="sort-botton" name="sort_hospitals">
                                 <option value="star" {{ $sortHospitals == "star" ? "selected" : "" }}>高評価順</option>
                                 <option value="smooth" {{ $sortHospitals == "smooth" ? "selected" : "" }}>スムーズ順</option>
                             </select>
                         </div> 
                     </form>
                 </div>
-            </div>
-            <br>
-            <hr>
-            <div>
-                <div class='hospitals'>
-                    @if ($hospitals->isEmpty())
-                        <p>該当する病院がありませんでした。</p>
-                    @endif
-                    @foreach ($hospitals as $hospital)
-                        <div class='hospital'>
-                            <h2 class='name'>
-                                <a href="/hospitals/{{ $hospital->id }}">{{ $hospital->name }}</a>
-                                ({{ $hospital->place }})
-                            </h2>
-                            <h3>★
-                                @if (isset($hospital->average_stars))
-                                    {{ number_format($hospital->average_stars, 2) }}
+                <hr>
+                <div class="result-hospitals">
+                    <div class='hospitals'>
+                        @if ($hospitals->isEmpty())
+                            <p>該当する病院がありませんでした。</p>
+                        @endif
+                        @foreach ($hospitals as $hospital)
+                            <div class='hospital'>
+                                <h2 class='name'>
+                                    <a href="/hospitals/{{ $hospital->id }}">{{ $hospital->name }} ({{ $hospital->place }})</a>
+                                </h2>
+                                <h3>★
+                                    @if (isset($hospital->average_stars))
+                                        {{ number_format($hospital->average_stars, 2) }}
+                                    @endif
+                                </h3>
+                                @if(!is_null($hospital->departments))
+                                    @foreach ($hospital->departments as $department)
+                                        {{ $department->name }}@if (!$loop->last), @endif
+                                    @endforeach
                                 @endif
-                            </h3>
-                            @if(!is_null($hospital->departments))
-                                @foreach ($hospital->departments as $department)
-                                    {{ $department->name }}@if (!$loop->last), @endif
-                                @endforeach
-                            @endif
-                            @if(isset($hospital->average_smooth_examination) || isset($hospital->average_smooth_hospitalization))
-                                <h3>治療までのスムーズさ</h3>
-                            @endif
-                            @if(isset($hospital->average_smooth_examination))
-                                <h3>診察まで{{ number_format($hospital->average_smooth_examination, 2) }}日　</h3>
-                            @endif
-                            @if(isset($hospital->average_smooth_hospitalization))
-                                <h3>入院・手術まで{{ number_format($hospital->average_smooth_hospitalization, 2) }}日</h3>
-                            @endif
-                            @if(isset($bodyPart[$hospital->id]))
-                                <p>{{ $bodyPart[$hospital->id] }}</p>
-                            @endif
-                        </div>
-                        <br>
-                    @endforeach
-                </div>
-                <div class='paginate'>
-                    {{ $hospitals->links() }}
+                                @if(isset($hospital->average_smooth_examination) || isset($hospital->average_smooth_hospitalization))
+                                    <h3 class="smooth">治療までのスムーズさ</h3>
+                                @endif
+                                @if(isset($hospital->average_smooth_examination))
+                                    <h3 class="smooth-examination">診察まで{{ number_format($hospital->average_smooth_examination, 2) }}日　</h3>
+                                @endif
+                                @if(isset($hospital->average_smooth_hospitalization))
+                                    <h3 class="smooth-hospitalization">入院・手術まで{{ number_format($hospital->average_smooth_hospitalization, 2) }}日</h3>
+                                @endif
+                                @if(isset($bodyPart[$hospital->id]))
+                                    <p class="body-part">{{ $bodyPart[$hospital->id] }}</p>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class='paginate'>
+                        {{ $hospitals->links() }}
+                    </div>
                 </div>
             </div>
         </body>
