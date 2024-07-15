@@ -40,7 +40,7 @@
                     </table>
                     
                     <div class="paginate">
-                        {{ $hospitals->links() }}
+                        <ul class="pagination">{{ $hospitals->links() }}</ul>
                     </div>
                 </div>
                 <hr>

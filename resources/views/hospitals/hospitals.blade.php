@@ -90,7 +90,7 @@
                         @endforeach
                     </div>
                     <div class='paginate'>
-                        {{ $hospitals->links() }}
+                        <ul class="pagination">{{ $hospitals->appends(request()->query())->links() }}</ul>
                     </div>
                 </div>
             </div>
