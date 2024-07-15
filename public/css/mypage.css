@@ -1,0 +1,56 @@
+body {
+    margin: 0 auto; /* デフォルトの余白をリセット */
+}
+
+th {
+    white-space: nowrap;
+}
+.color {
+    min-height: 100vh; /* ビューポートの高さに合わせる */
+    background-color: #f0f6da;
+    padding-bottom: 50px;
+}
+
+.profile, .posts {
+    padding: 30px;
+}
+
+.title {
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+.profile-update {
+    border: 1px solid #6b7280;
+    background-color: #ffffff;
+    cursor: pointer;
+    padding: 5px;
+    width: 200px;
+}
+
+.post {
+    margin: 20px;
+    border: 1px solid #6b7280;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.hospital-name {
+    font-size: 20px;
+    text-decoration:underline;
+}
+
+.smooth, .smooth-examination, .smooth-hospitalization {
+    display: inline-block;
+}
+
+.smooth {
+    font-weight: bold;
+}
+
+.body-part {
+    border: 1px solid #6b7280;
+    border-radius: 3px;
+    width: 300px;
+    height: 100px;
+}
