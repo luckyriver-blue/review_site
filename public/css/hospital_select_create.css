@@ -1,0 +1,30 @@
+body {
+    margin: 0 auto; /* デフォルトの余白をリセット */
+}
+
+.color {
+    min-height: 100vh; /* ビューポートの高さに合わせる */
+    background-color: #f0f6da;
+    padding-bottom: 50px;
+}
+
+.hospitals, .add_hospital {
+    padding: 40px;
+}
+
+.select-hospital, .add-hospital {
+    font-size: 20px;
+}
+
+.name {
+    text-decoration:underline;
+}
+
+.add {
+    border: 1px solid #6b7280;
+    background-color: #ffffff;
+    cursor: pointer;
+    margin: 30px;
+    margin-left: 80px;
+    padding: 5px;
+}
