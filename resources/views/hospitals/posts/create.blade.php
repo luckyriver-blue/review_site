@@ -28,18 +28,17 @@
             口コミを書く
         </x-slot>
         <body class="antialiased">
-            <div>
-                <h2 align=center>口コミ✎</h2>
-                <div class="enter_review">
-                    <h2>{{ $hospital->name }}</h2>
-                    <form action="/posts" method="POST">
-                        @csrf
-                        
+            <div class="color">
+                <h2 align=center class="title">口コミ✎</h2>
+                <form action="/posts" method="POST">
+                    @csrf
+                    <div class="enter_review">
+                        <h2 class="hospital">{{ $hospital->name }}</h2>
                         <table>
                             <tr class="myself">
                                 <th>口コミを投稿するのは</th>
                                 <td class="container">
-                                    <select class="block mt-1 w-full" name="post[myself]">
+                                    <select class="block mt-1" name="post[myself]">
                                         <option align=center value="">-未選択-</option>
                                         <option value="1">本人</option>
                                         <option value="2">本人でない</option>
@@ -49,7 +48,7 @@
                             <tr class="hospital_department">
                                 <th>診療科</th>
                                 <td class="container">
-                                    <select class="block mt-1 w-full" name="post[hospital_department_id]">
+                                    <select class="block mt-1" name="post[hospital_department_id]">
                                         <option value="">-未選択-</option>
                                         @foreach ($hospital_departments as $hospital_department)
                                             <option value="{{ $hospital_department->id }}">{{ $hospital_department->name }}</option>
@@ -65,13 +64,13 @@
                                 </td>
                             </tr>
                             <tr class="smooth">
-                                <th>治療までのスムーズさ</th>
+                                <th>治療までのスムーズさ＊</th>
                                 <td>診察まで
                                 <input type="number" name="post[smooth_examination]"/>
                                 日　
                                 入院・手術まで
                                 <input type="number" name="post[smooth_hospitalization]"/>
-                                日*</td>
+                                日</td>
                             </tr>
                             <tr class="star">
                                 <th>評価（必須）</th>
@@ -87,19 +86,20 @@
                                 </td>
                             </tr>
                         </table>
-                        
                         <div class="body">
-                            <h3>口コミ</h3>
-                            <textarea name="post[body]" placeholder="ホームページ上から予約ができました。診察も丁寧でした。">{{ old('post.body') }}</textarea>
+                            <h3 class="body-name">口コミ</h3>
+                            <textarea name="post[body]" placeholder="ホームページ上から予約ができました。診察も丁寧でした。" class="body-box">{{ old('post.body') }}</textarea>
                             <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
                         </div>
-                        <p>＊治療までのスムーズさを比較するための項目です。</p>
-                        <p>　例えば診察は、初診で連絡してからだいたい何日後に予約が取れたか（当日受付なら０日）</p>
-                        <p>　入院・手術は入院又は入院・手術の予定が、その方針が決まってからだいたい何日後入ったか</p>
+                        <p class="explanation">＊治療までのスムーズさを比較するための項目です。</p>
+                        <p class="explanation">　例えば診察は、初診で連絡してからだいたい何日後に予約が取れたか（当日受付なら０日）</p>
+                        <p class="explanation">　入院・手術は入院又は入院・手術の予定が、その方針が決まってからだいたい何日後入ったか</p>
                         <input type="hidden" name="post[hospital_id]" value="{{ $hospital->id }}">
-                        <input type="submit" value="口コミを投稿する"/>
-                    </form>
-                </div>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="口コミを投稿する" class="post-button"/>
+                    </div>
+                </form>
             </div>
         </body>
     </x-app-layout>

@@ -16,15 +16,17 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+        <link rel="stylesheet" href="{{ asset('css/hospital_select_create.css') }}">
     </head>
     <x-app-layout>
         <x-slot name="header">
             口コミを書く
         </x-slot>
         <body class="antialiased">
-            <div>
+            <div class="color">
                 <div class="hospitals">
-                    <h2>病院を選択する</h2>
+                    <h2 class="select-hospital">病院を選択する</h2>
+                    <br>
                     
                     <table>
                         @foreach ($hospitals as $hospital)
@@ -32,7 +34,7 @@
                             <th class="name">
                                 <a href="/posts/hospital/create/{{ $hospital->id }}">{{ $hospital->name }}</a>
                             </th>
-                            <td class="place">{{ $hospital->place }}</td>
+                            <td class="place">　{{ $hospital->place }}</td>
                         </tr>
                         @endforeach
                     </table>
@@ -43,10 +45,12 @@
                 </div>
                 <hr>
                 <div class="add_hospital">
+                    <h2 class="add-hospital">病院を追加する</h2>
+                    <br>
                     <form action="/posts/hospital/create" method="POST">
                         @csrf
                         <table>
-                            <tr class='name'>
+                            <tr>
                                 <th>病院名</th>
                                 <td>
                                     <input type="text" name="hospital[name]" value="{{ old('hospital.name') }}" placeholder="例) 日本総合病院">
@@ -61,7 +65,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <input type="submit" value="病院を追加する"/>
+                        <input type="submit" value="病院を追加する" class="add"/>
                     </form>
                 </div>
             </div>
