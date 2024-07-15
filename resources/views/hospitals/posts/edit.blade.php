@@ -18,29 +18,25 @@
         </style>
         <link rel="stylesheet" href="{{ secure_asset('/css/create.css') }}">
         <link rel="stylesheet" href="{{ secure_asset('/css/star.css') }}">
-        
-       
-        
-        
     </head>
     <x-app-layout>
         <x-slot name="header">
             マイページ
         </x-slot>
         <body class="antialiased">
-            <div>
-                <h2 align=center>口コミ編集✎</h2>
-                <div class="enter_review">
-                    <h2>{{ $post->hospital->name }}</h2>
-                    <form action="/posts/{{ $post->id }}" method="POST">
-                        @csrf
-                        @method('PUT')
+            <div class="color">
+                <h2 class="title" align="center">口コミ編集✎</h2>
+                <form action="/posts/{{ $post->id }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="enter_review">
+                        <h2 class="hospital">{{ $post->hospital->name }}</h2>
                         
                         <table>
                             <tr class="myself">
                                 <th>口コミを投稿するのは</th>
                                 <td class="container">
-                                    <select class="block mt-1 w-full" name="post[myself]">
+                                    <select class="block mt-1" name="post[myself]">
                                         <option align=center value="">-未選択-</option>
                                         <option value="1" {{ $post->myself =="1"? "selected" : "" }}>本人</option>
                                         <option value="2" {{ $post->myself =="2"? "selected" : "" }}>本人でない</option>
@@ -50,7 +46,7 @@
                             <tr class="hospital_department">
                                 <th>診療科</th>
                                 <td class="container">
-                                    <select class="block mt-1 w-full" name="post[hospital_department_id]">
+                                    <select class="block mt-1" name="post[hospital_department_id]">
                                         <option value="">-未選択-</option>
                                         @foreach ($hospital_departments as $hospital_department)
                                             <option value="{{ $hospital_department->id }}" {{ $post->hospital_department_id == $hospital_department->id ? "selected" : "" }}>{{ $hospital_department->name }}</option>
@@ -66,13 +62,13 @@
                                 </td>
                             </tr>
                             <tr class="smooth">
-                                <th>治療までのスムーズさ</th>
+                                <th>治療までのスムーズさ＊</th>
                                 <td>診察まで
                                 <input type="number" name="post[smooth_examination]" value="{{ $post->smooth_examination ?? "" }}"/>
                                 日　
                                 入院・手術まで
                                 <input type="number" name="post[smooth_hospitalization]" value="{{ $post->smooth_hospitalization ?? "" }}"/>
-                                日*</td>
+                                日</td>
                             </tr>
                             <tr class="star">
                                 <th>評価（必須）</th>
@@ -90,20 +86,24 @@
                         </table>
                         
                         <div class="body">
-                            <h3>口コミ</h3>
-                            <textarea name="post[body]">{{ $post->body ?? "" }}</textarea>
+                            <h3 class="body-name">口コミ</h3>
+                            <textarea name="post[body]" class="body-box">{{ $post->body ?? "" }}</textarea>
                             <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
                         </div>
-                        <p>＊治療までのスムーズさを比較するための項目です。</p>
-                        <p>　例えば診察は、初診で連絡してからだいたい何日後に予約が取れたか（当日受付なら０日）</p>
-                        <p>　入院・手術は入院又は入院・手術の予定が、その方針が決まってからだいたい何日後入ったか</p>
-                        <input type="submit" value="更新する"/>
-                    </form>
-                </div>
+                        <p class="explanation">＊治療までのスムーズさを比較するための項目です。</p>
+                        <p class="explanation">　例えば診察は、初診で連絡してからだいたい何日後に予約が取れたか（当日受付なら０日）</p>
+                        <p class="explanation">　入院・手術は入院又は入院・手術の予定が、その方針が決まってからだいたい何日後入ったか</p>
+                    </div>
+                    <div class="right-button">
+                        <input type="submit" value="更新する" class="update-button"/>
+                    </div>
+                </form>
                 <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button type="button" onclick="deletePost({{ $post->id }})">口コミを削除する</button>
+                    <div class="right-button">
+                        <button type="button" onclick="deletePost({{ $post->id }})" class="delete-button">口コミを削除する</button>
+                    </div>
                 </form>
             </div>
             <script>
