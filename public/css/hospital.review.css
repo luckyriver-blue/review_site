@@ -86,3 +86,18 @@ body {
 .helpful-button:hover {
     background-color: #f0f0f0;
 }
+
+.paginate {
+    display: flex;
+    justify-content: center; 
+    text-decoration: underline; 
+}
+
+.pagination {
+    display: flex;
+    list-style-type: none;
+}
+
+.paginate .pagination li {
+    margin-right: 10px;
+}

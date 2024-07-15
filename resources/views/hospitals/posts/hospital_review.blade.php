@@ -123,7 +123,7 @@
                         @endforeach
                     </div>
                     <div class='paginate'>
-                        {{ $posts->links() }}
+                        <ul class="pagination">{{ $posts->appends(request()->query())->links() }}</ul>
                     </div>
                 </div>
             </div>
