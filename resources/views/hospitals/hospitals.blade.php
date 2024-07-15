@@ -66,11 +66,13 @@
                                         {{ number_format($hospital->average_stars, 2) }}
                                     @endif
                                 </h3>
-                                @if(!is_null($hospital->departments))
-                                    @foreach ($hospital->departments as $department)
-                                        {{ $department->name }}@if (!$loop->last), @endif
-                                    @endforeach
-                                @endif
+                                <p>
+                                    @if(!is_null($hospital->departments))
+                                        @foreach ($hospital->departments as $department)
+                                            {{ $department->name }}@if (!$loop->last), @endif
+                                        @endforeach
+                                    @endif
+                                </p>
                                 @if(isset($hospital->average_smooth_examination) || isset($hospital->average_smooth_hospitalization))
                                     <h3 class="smooth">治療までのスムーズさ　</h3>
                                 @endif
