@@ -1,3 +1,7 @@
+body {
+    margin: 0 auto; /* デフォルトの余白をリセット */
+}
+
 .color {
     min-height: 100vh; /* ビューポートの高さに合わせる */
     background-color: #f0f6da;
@@ -59,7 +63,31 @@ table {
     width: 300px;
 }
 
+.right-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.update-button, .delete-button {
+    margin-top: 20px;
+    margin-right: 250px;
+    border: 1px solid #6b7280;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: #ffffff;
+    cursor: pointer;
+    width: 200px;
+}
+
 .post-button:hover {
+    background-color: #f0f0f0;
+}
+
+.update-button:hover {
+    background-color: #f0f0f0;
+}
+
+.delete-button:hover {
     background-color: #f0f0f0;
 }
 
