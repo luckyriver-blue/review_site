@@ -55,7 +55,7 @@ class ReviewController extends Controller
     
     public function HospitalReview(Hospital $hospital, Post $post, Hospital_Department $hospital_department, Request $request)
     {
-        $sortPosts = $request->input('sort_posts');
+        $sortPosts = $request->input('sort_posts', 'helpful');
         $searchHospital_Department = $request->input('search_hospital_department');
         $keyword = $request->input('keyword');
         
