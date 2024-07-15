@@ -27,7 +27,7 @@
                 <div class='search'>
                     <form action="/hospitals" method="GET">
                         <input type="text" name="keyword" value="{{ $keyword }}" placeholder="病院名、場所、診療科で病院を検索" class="search-box">
-                        <input type="submit" value ="検索" class="search-botton">
+                        <input type="submit" value ="検索" class="search-button">
                     </form>
                 </div>
                 <hr>

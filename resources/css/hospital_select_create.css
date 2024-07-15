@@ -28,3 +28,17 @@ body {
     margin-left: 80px;
     padding: 5px;
 }
+
+.paginate {
+    display: flex;
+    text-decoration: underline; 
+}
+
+.pagination {
+    display: flex;
+    list-style-type: none;
+}
+
+.paginate .pagination li {
+    margin-right: 10px;
+}
